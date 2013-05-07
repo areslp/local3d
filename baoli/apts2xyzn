@@ -1,0 +1,9 @@
+#!/bin/sh
+if [ -z ${1} ];
+then
+    echo "输入源文件名!"
+    exit 1
+fi
+# temp=$(mktemp -t apts.XXXXXX)
+sed -i -e '1,7d' -e 's/[,;]/ /g' -e 's/ \+/ /g' ${1}
+cut -d' ' -f1-3,5-7 ${1} > ${1%.*}.xyzn

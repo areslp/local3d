@@ -1,0 +1,6 @@
+#!/bin/sh
+fname="test"
+mr=`sed -n -e '1p' mr.txt`
+echo $mr
+time ./sc.exe $fname.xyzn $mr
+mv ./scfeatures.txt "sc.txt"

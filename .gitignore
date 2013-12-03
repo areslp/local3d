@@ -14,3 +14,7 @@ result/
 *.xyznq
 *.off
 *.tar.gz
+*.eps
+*.txt
+*.dll
+*.mat

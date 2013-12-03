@@ -53,14 +53,17 @@ int main(int argc, char **argv)
 	cout<<"added normal size:"<<normals.size()<<endl;
 	cout<<"output"<<endl;
 	ofstream outfile("standard_normal.xyzn");
+	ofstream outfile1("tmp.xyzn");
 	int index=0;
 	for (MyMesh::VertexIter v_it=mesh.vertices_begin(); v_it!=mesh.vertices_end(); ++v_it) 
 	{ 
 		OpenMesh::Vec3f p=mesh.point(v_it);
 		OpenMesh::Vec3f n=normals[index];
 		outfile<<p[0]<<" "<<p[1]<<" "<<p[2]<<" "<<n[0]<<" "<<n[1]<<" "<<n[2]<<endl;
+		outfile1<<p[0]<<" "<<p[1]<<" "<<p[2]<<endl;
 		++index;
 	}
 	outfile.close();
+	outfile1.close();
 	return 0;
 }

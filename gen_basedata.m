@@ -1,4 +1,4 @@
-function [X,mapping] = gen_basedata(dim,S,di,k,affine)
+function [X,X0,mapping] = gen_basedata(dim,S,di,k,affine)
 num=S*k; % total sample number
 
 X=cell(S,1); % array of sampled points in each subspace
@@ -48,15 +48,27 @@ end
 X=cat(2,Xcell{:});
 
 
+<<<<<<< HEAD
 % add noise, outliers
 % p=0.97;
 % N=rand(size(X))>p;
 % N(find(N>0))=1;
 % N=N.*rand(size(X));
+=======
+X0=X;
+% generate noise, outliers
+p=0.50;
+% N=rand(size(X))>p; % 这个就不是sample-specific的噪声了
+N=rand(1,length(X))>p;
+nnz(N)/length(N)
+N=repmat(N,dim,1);
+N=0.05*N.*repmat(randn(1,length(X)),dim,1);
+% N=0.1*rand(size(X));
+% add noise
+>>>>>>> 0b3ab03acaea6bd8981178e706d0776e28065fea
 % X=X+N;
 
 % should not normalize this, because the points is in X;
-
 % for i=1:num
     % X(:,i)=X(:,i)/norm(X(:,i));
 % end

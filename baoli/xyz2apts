@@ -4,15 +4,12 @@ then
     echo "输入源文件名!"
     exit 1
 fi
-
 filename=`basename ${1}`
 # echo $filename
 linenum=`cat ${1} | wc -l`
 # echo $linenum
 outfile=${filename%.*}.apts
 # echo $outfile
-
-
 if [ -f "${outfile}" ]; then  
     rm ${outfile} 
 fi  
@@ -23,4 +20,4 @@ echo "property normal 3 r32" >> ${outfile}
 echo "property color 4 ui8" >> ${outfile}
 echo "nofpoints ${linenum}" >> ${outfile}
 echo "data" >> ${outfile}
-awk '{print $1","$2,","$3";0;"$4","$5","$6";1,1,1,1;0"}' ${1} >> ${outfile}
+awk '{print $1","$2","$3";0;0,0,0;1,1,1,1;0"}' ${1} >> ${outfile}

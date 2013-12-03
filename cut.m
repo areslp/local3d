@@ -3,7 +3,7 @@ function [normals_new,global_flag,vertex_new] = cut(Z,E,vertex,vertex_new,normal
 [query_id, fname, lambda, alpha, rho, DEBUG, tau, subspace_num, k, speedup, denoise] = get_parameters();
 
 [m n]=size(Z);
-assert(m==n);
+% assert(m==n);
 num=m;
 
 % clustering
@@ -15,14 +15,18 @@ num=m;
 % skinny svd
 
 [U S V]=svd(Z);
-% svp=length(find(diag(S)>0));
+svp=length(find(diag(S)>0));
 % fprintf(1,'svp is %d\n',svp);
-% U=U(:,1:svp);
+U=U(:,1:svp);
+S=diag(S);
+S=S(1:svp);
+S=diag(S);
 % S=S(:,1:svp);
-% V=V(:,1:svp);
+V=V(:,1:svp);
 U_tiled=U*(S.^0.5);
 % row normalized, due to the paper "AUTOMATIC DETERMINATION OF THE NUMBER OF CLUSTERS USING SPECTRAL ALGORITHMS", row normalized is not necessary
 for i=1:n
+    assert(norm(U_tiled(i,:))~=0);
     U_tiled(i,:)=U_tiled(i,:)/norm(U_tiled(i,:));
 end
 W=U_tiled*U_tiled';
@@ -186,7 +190,14 @@ idxs=mapping(idxs,2);
 % vertex(:,mapping(id,2))
 % n=lsqnormest2(vertex,idxs);%3x1
 % n
+<<<<<<< HEAD
 n=fitNormal(vertex(:,idxs)',false);
+=======
+% n=fitNormal(vertex(:,idxs)',false);
+C=cov(vertex(:,idxs)');
+[V,D]=eig(C);
+n=V(:,1);
+>>>>>>> 0b3ab03acaea6bd8981178e706d0776e28065fea
 % [coeff]=princomp(vertex(:,idxs)');
 % n=coeff(:,3);
 

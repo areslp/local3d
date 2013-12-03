@@ -12,9 +12,10 @@ else
     scatter3(points(:,1),points(:,2),points(:,3),5,C,'filled');
 end
 hold off;
-axis equal;
-axis tight;
 set(gca,'GridLineStyle','-');
 set(gcf, 'Color', 'w');
+axis equal;
+axis([-1 1 -1 1 -1 1]);
+axis tight;
 end
 

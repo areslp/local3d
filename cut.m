@@ -1,6 +1,6 @@
-function [normals_new,global_flag] = cut(Z,E,vertex,normals,normals_new,mapping,global_flag,id)
+function [normals_new,global_flag,vertex_new] = cut(Z,E,vertex,vertex_new,normals,normals_new,mapping,global_flag,id)
 
-[query_id, fname, lambda, alpha, rho, DEBUG, tau, subspace_num, k, speedup] = get_parameters();
+[query_id, fname, lambda, alpha, rho, DEBUG, tau, subspace_num, k, speedup, denoise] = get_parameters();
 
 [m n]=size(Z);
 assert(m==n);
@@ -184,17 +184,26 @@ idxs=mapping(idxs,2);
 % fclose(ff);
 
 % vertex(:,mapping(id,2))
-n=lsqnormest2(vertex,idxs);%3x1
+% n=lsqnormest2(vertex,idxs);%3x1
 % n
-% n=fitNormal(vertex(:,idxs)',true);
+n=fitNormal(vertex(:,idxs)',false);
 % [coeff]=princomp(vertex(:,idxs)');
 % n=coeff(:,3);
 
 % nn=length(idxs);
 % normals=repmat(n',nn,1);
 % draw_points_and_normals(vertex(:,idxs)',normals);
-
+cur_id=mapping(id,2);
 normals_new(mapping(id,2),:)=n; 
+
+if denoise
+    [Point, Normal] = lsqPlane(vertex(:,idxs)');
+    [PB]=orthcomp(Normal'); % plane basis
+    point=vertex(:,cur_id);
+    vertex_new(:,cur_id)=projPointOnPlane(point', [Point PB(:,1)' PB(:,2)']);
+end
+
+
 % normals_new(mapping(id,2),:)
 
 % ff=fopen('cur_point.txt','w');
@@ -208,6 +217,8 @@ for i=1:num
     label=find(NcutDiscrete(i,:));
     cluster_labels(i)=label;
 end
+
+% save cr.mat cluster_labels;
 
 % sigma=0;
 % kmean_clusters=num_clusters;

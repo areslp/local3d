@@ -7,8 +7,8 @@ S=subspace_num; % number of subspace
 
 % as in the paper
 
-% dim=100; % dim of ambient space
-% di=5;
+dim=100; % dim of ambient space
+di=4;
 
 % lines in R^3
 
@@ -17,8 +17,8 @@ S=subspace_num; % number of subspace
 
 % planes in R^3
 
-dim=3; % dim of ambient space
-di=2; % dim of subspace
+% dim=3; % dim of ambient space
+% di=2; % dim of subspace
 
 % lines in R^2
 

@@ -74,6 +74,7 @@ x=[20 30 40 50 60 70 80 90 100];
 % set(gcf, 'Color', 'w');
 % xlabel('k');
 % ylabel('accuracy');
+% set(gca, 'ylim', [0, 0.08]);
 
 acc_per_lambda=[1.0 0.0459191;
                 0.9 0.0459023;
@@ -97,3 +98,4 @@ axis tight;
 set(gcf, 'Color', 'w');
 xlabel('lambda');
 ylabel('accuracy');
+set(gca, 'ylim', [0, 0.1]);

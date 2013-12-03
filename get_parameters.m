@@ -1,8 +1,9 @@
 function [query_id, fname, lambda, alpha, rho, DEBUG, tau, subspace_num, k, speedup, denoise] = get_parameters()
 % fandisk.off
-% fname='fandisk';
+fname='fandisk';
 % fname='noise_fandisk2';
 % fname='noise_fandisk';
+% fname='noise_fandisk_7w';
 % fname='armadillo';
 % fname='noise_armadillo';
 % fname='bunny';
@@ -16,16 +17,16 @@ function [query_id, fname, lambda, alpha, rho, DEBUG, tau, subspace_num, k, spee
 % fname='parallel1';
 % fname='parallel';
 % fname='thinbox';
-fname='mechpart';
+% fname='mechpart';
 
 query_id=9038; % bunny ear
 query_id=161913; % armadillo tiny geometric feature
 % query_id=102961; % armadillo tiny geometric feature
 
-k=100; % local neighborhood number
+k=50; % local neighborhood number
 % lambda=1/sqrt(k);
 lambda=1;
-alpha=0.1;
+alpha=0.2;
 rho=1.9;
 DEBUG=0;
 % tau=6e-1; % with 0.2 noiseend
@@ -35,4 +36,4 @@ tau=8e-1; % with no noise and PCA normal
 subspace_num=0;
 speedup=false;
 % speedup=true;
-denoise=true;
+denoise=false;

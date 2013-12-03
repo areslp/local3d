@@ -6,6 +6,26 @@ function [normals_new,global_flag] = cut(Z,X)
 assert(m==n);
 num=m;
 
+Z=0.5*(abs(Z)+abs(Z'));
+% Z=normc(Z);
+Z=mnormalize_col(Z);
+
+% h=figure('Visible', 'off');
+% imagesc(Z);
+% colormap(gray);
+% axis equal;
+% saveas(h,'Z_ori.png');
+figure;
+set(gcf, 'Color', 'w');
+% Z(find(Z<0.2))=0; % LRSR
+Z(find(Z<0.05))=0; % LRR
+% Z(find(Z<0.1))=0; % SR
+spy(Z);
+axis off;
+% set(gca,'xtick',[],'ytick',[]);
+% set(gca,'xlabel',[ ],'ylabel',[]);
+
+
 % clustering
 
 % Z=0.5*(abs(Z)+abs(Z'));
@@ -72,7 +92,7 @@ end
 % end
 
 % if write_result
-    draw_points3d_labels(X',cluster_labels);
+    % draw_points3d_labels(X',cluster_labels);
 % end
 
 % now I have z1 and cluster_labels

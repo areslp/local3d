@@ -48,8 +48,11 @@ end
 X=cat(2,Xcell{:});
 
 
-% add noise
-% N=randn(size(X));
+% add noise, outliers
+% p=0.97;
+% N=rand(size(X))>p;
+% N(find(N>0))=1;
+% N=N.*rand(size(X));
 % X=X+N;
 
 % should not normalize this, because the points is in X;

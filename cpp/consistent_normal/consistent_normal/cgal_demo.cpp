@@ -92,8 +92,8 @@ int main(int argc, char const* argv[])
 		}
 		n1.normalize();
 		n2.normalize();
-		cout<<n1[0]<<" "<<n1[1]<<" "<<n1[2]<<endl;
-		cout<<n2[0]<<" "<<n2[1]<<" "<<n2[2]<<endl;
+		//cout<<n1[0]<<" "<<n1[1]<<" "<<n1[2]<<endl;
+		//cout<<n2[0]<<" "<<n2[1]<<" "<<n2[2]<<endl;
 		float tmp=n1.dot(n2);
 
 		//若n2为空，则跳过

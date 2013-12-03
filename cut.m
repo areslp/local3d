@@ -1,9 +1,9 @@
-function [normals_new,global_flag] = cut(Z,E,vertex,normals,normals_new,mapping,global_flag,id)
+function [normals_new,global_flag,vertex_new] = cut(Z,E,vertex,vertex_new,normals,normals_new,mapping,global_flag,id)
 
-[query_id, fname, lambda, alpha, rho, DEBUG, tau, subspace_num, k, speedup] = get_parameters();
+[query_id, fname, lambda, alpha, rho, DEBUG, tau, subspace_num, k, speedup, denoise] = get_parameters();
 
 [m n]=size(Z);
-assert(m==n);
+% assert(m==n);
 num=m;
 
 % clustering
@@ -15,14 +15,18 @@ num=m;
 % skinny svd
 
 [U S V]=svd(Z);
-% svp=length(find(diag(S)>0));
+svp=length(find(diag(S)>0));
 % fprintf(1,'svp is %d\n',svp);
-% U=U(:,1:svp);
+U=U(:,1:svp);
+S=diag(S);
+S=S(1:svp);
+S=diag(S);
 % S=S(:,1:svp);
-% V=V(:,1:svp);
+V=V(:,1:svp);
 U_tiled=U*(S.^0.5);
 % row normalized, due to the paper "AUTOMATIC DETERMINATION OF THE NUMBER OF CLUSTERS USING SPECTRAL ALGORITHMS", row normalized is not necessary
 for i=1:n
+    assert(norm(U_tiled(i,:))~=0);
     U_tiled(i,:)=U_tiled(i,:)/norm(U_tiled(i,:));
 end
 W=U_tiled*U_tiled';
@@ -184,17 +188,29 @@ idxs=mapping(idxs,2);
 % fclose(ff);
 
 % vertex(:,mapping(id,2))
-n=lsqnormest2(vertex,idxs);%3x1
+% n=lsqnormest2(vertex,idxs);%3x1
 % n
-% n=fitNormal(vertex(:,idxs)',true);
+% n=fitNormal(vertex(:,idxs)',false);
+C=cov(vertex(:,idxs)');
+[V,D]=eig(C);
+n=V(:,1);
 % [coeff]=princomp(vertex(:,idxs)');
 % n=coeff(:,3);
 
 % nn=length(idxs);
 % normals=repmat(n',nn,1);
 % draw_points_and_normals(vertex(:,idxs)',normals);
-
+cur_id=mapping(id,2);
 normals_new(mapping(id,2),:)=n; 
+
+if denoise
+    [Point, Normal] = lsqPlane(vertex(:,idxs)');
+    [PB]=orthcomp(Normal'); % plane basis
+    point=vertex(:,cur_id);
+    vertex_new(:,cur_id)=projPointOnPlane(point', [Point PB(:,1)' PB(:,2)']);
+end
+
+
 % normals_new(mapping(id,2),:)
 
 % ff=fopen('cur_point.txt','w');

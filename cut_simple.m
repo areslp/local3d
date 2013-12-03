@@ -1,10 +1,32 @@
-function [normals_new,global_flag] = cut(Z,X)
+function [normals_new,global_flag] = cut(Z,X,X0)
 
 [query_id, fname, lambda, alpha, rho, DEBUG, tau, subspace_num, k, speedup] = get_parameters();
 
 [m n]=size(Z);
 assert(m==n);
 num=m;
+
+Z=0.5*(abs(Z)+abs(Z'));
+% Z=normc(Z);
+Z=mnormalize_col(Z);
+
+h=figure('Visible', 'off');
+imagesc(Z);
+colormap(gray);
+axis equal;
+axis tight;
+saveas(h,'Z_ori.png');
+saveas(h,'Z_ori.eps');
+% figure;
+% set(gcf, 'Color', 'w');
+% Z(find(Z<0.2))=0; % LRSR
+% Z(find(Z<0.05))=0; % LRR
+% Z(find(Z<0.1))=0; % SR
+% spy(Z);
+% axis off;
+% set(gca,'xtick',[],'ytick',[]);
+% set(gca,'xlabel',[ ],'ylabel',[]);
+
 
 % clustering
 
@@ -14,6 +36,7 @@ num=m;
 % U~=U^*(\Sigma^*)^{1/2} with row normalized
 % skinny svd
 
+Z
 [U S V]=svd(Z);
 % svp=length(find(diag(S)>0));
 % fprintf(1,'svp is %d\n',svp);
@@ -28,13 +51,16 @@ end
 W=U_tiled*U_tiled';
 W=W.^2;
 Z=W;
+Z
 
 
 h=figure('Visible', 'off');
 imagesc(Z);
 colormap(gray);
 axis equal;
+axis tight;
 saveas(h,'Z.png');
+saveas(h,'Z.eps');
 
 
 num_clusters=subspace_num;
@@ -73,6 +99,7 @@ end
 
 % if write_result
     draw_points3d_labels(X',cluster_labels);
+    % draw_points3d_labels(X0',cluster_labels);
 % end
 
 % now I have z1 and cluster_labels

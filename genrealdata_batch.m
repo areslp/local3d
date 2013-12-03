@@ -16,6 +16,9 @@ for i=1:num
 end
 X=normals(result,:)';
 
+% V=vertex(:,result);
+% draw_points3d(V');
+
 % TODO: TESTING
 % nn=size(X,2);
 % co=randn(1,nn);

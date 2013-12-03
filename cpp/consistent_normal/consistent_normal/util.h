@@ -76,7 +76,7 @@ class Util
             return subPointCloud;
         }
      
-        static void read_points(string infile, pcl::PointCloud<pcl::PointNormal>::Ptr points)
+        static void read_points(std::string infile, pcl::PointCloud<pcl::PointNormal>::Ptr points)
         {
             std::ifstream in(infile.c_str());
             std::string tmp;
@@ -102,7 +102,7 @@ class Util
             }
             in.close();
         }
-        static void read_pointnormals(string infile, pcl::PointCloud<pcl::PointNormal>::Ptr points)
+        static void read_pointnormals(std::string infile, pcl::PointCloud<pcl::PointNormal>::Ptr points)
         {
             std::ifstream in(infile.c_str());
             std::string tmp;

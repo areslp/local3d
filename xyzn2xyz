@@ -1,0 +1,12 @@
+#!/bin/sh
+if [ -z ${1} ];
+then
+    echo "输入源文件名!"
+    exit 1
+fi
+linenum=`cat ${1} | wc -l`
+outfile=${1%.*}.xyz
+if [ -f "${outfile}" ]; then  
+    rm ${outfile} 
+fi  
+awk '{print $1" "$2" "$3}' ${1} >> ${outfile}

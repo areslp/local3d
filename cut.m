@@ -47,8 +47,6 @@ Z=W;
 % end
 
 if subspace_num==0
-
-
     D=diag(sum(Z,2));
     L=eye(n)-D^-0.5*Z*D^-0.5;
     [U S V]=svd(L);
@@ -190,14 +188,10 @@ idxs=mapping(idxs,2);
 % vertex(:,mapping(id,2))
 % n=lsqnormest2(vertex,idxs);%3x1
 % n
-<<<<<<< HEAD
-n=fitNormal(vertex(:,idxs)',false);
-=======
 % n=fitNormal(vertex(:,idxs)',false);
 C=cov(vertex(:,idxs)');
 [V,D]=eig(C);
 n=V(:,1);
->>>>>>> 0b3ab03acaea6bd8981178e706d0776e28065fea
 % [coeff]=princomp(vertex(:,idxs)');
 % n=coeff(:,3);
 

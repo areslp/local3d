@@ -12,9 +12,9 @@ clear;
 
 
 [point_with_normal]=load(['data/' fname '.xyzn']);
-covv=load('cov.txt'); % 根据曲率值过滤不靠谱的字典法矢
-size(covv)
-covl=(covv<1e-2); % 靠谱点的label
+% covv=load('cov.txt'); % 根据曲率值过滤不靠谱的字典法矢
+% size(covv)
+% covl=(covv<1e-2); % 靠谱点的label
 % size(covl)
 % pause;
 
@@ -76,22 +76,22 @@ for i=1:num
     [X,mapping,idx]=genrealdata_batch(i,index,vertex,normals);
 
     % write neighbor index
-    ff1=fopen('neighbors.txt','w');
-    for tt=1:length(mapping)
-        fprintf(ff1,'%d\n',mapping(tt,2)-1);
-    end
-    fclose(ff1);
+    % ff1=fopen('neighbors.txt','w');
+    % for tt=1:length(mapping)
+        % fprintf(ff1,'%d\n',mapping(tt,2)-1);
+    % end
+    % fclose(ff1);
 
     % draw_points3d(X');
 
     D=X;
-    dell=zeros(length(D),1); % D中要删除点索引
-    for ii=1:length(D)
-        id=mapping(ii,2); % ii点在全局中的索引
-        if(covl(id)==0) 
-            dell(ii)=1;
-        end
-    end
+    % dell=zeros(length(D),1); % D中要删除点索引
+    % for ii=1:length(D)
+        % id=mapping(ii,2); % ii点在全局中的索引
+        % if(covl(id)==0) 
+            % dell(ii)=1;
+        % end
+    % end
     % size(D)
     % size(find(dell==1))
     % D(:,find(dell==1))=[]; % 从字典中删除不靠谱点的法矢
@@ -109,8 +109,8 @@ for i=1:num
     % TODO: non-negative
     % [Z,E]=nnlow_rank(X,lambda,1000); % 0.01, 0.02
     
-    t=toc;
-    fprintf(1,'lowrank learning takes:%f\n',t);
+    % t=toc;
+    % fprintf(1,'lowrank learning takes:%f\n',t);
     % Z=Z'*Z;
 
     % vis

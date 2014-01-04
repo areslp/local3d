@@ -92,10 +92,9 @@ int main(int argc, char const* argv[])
 		}
 		n1.normalize();
 		n2.normalize();
-		//cout<<n1[0]<<" "<<n1[1]<<" "<<n1[2]<<endl;
-		//cout<<n2[0]<<" "<<n2[1]<<" "<<n2[2]<<endl;
+		
 		float tmp=n1.dot(n2);
-
+		
 		//若n2为空，则跳过
 
 		if (tmp!=tmp) {
@@ -103,6 +102,13 @@ int main(int argc, char const* argv[])
 			continue;
 		}
 		if (tmp<0) {
+			//TODO: 还需要判断下角度，如果角度接近90度，就不要反向，直接把法矢转向初始法矢，
+			//考虑下角上的点就明白了，这里不好画图，回头需要修改下这个代码
+			
+			//cout<<"n1:"<<n1[0]<<" "<<n1[1]<<" "<<n1[2]<<endl;
+			//cout<<"n2:"<<n2[0]<<" "<<n2[1]<<" "<<n2[2]<<endl;
+			//cout<<"tmp:"<<tmp<<endl;
+
 			p1.normal_x=-p1.normal_x; 
 			p1.normal_y=-p1.normal_y; 
 			p1.normal_z=-p1.normal_z; 
@@ -180,7 +186,6 @@ int main(int argc, char const* argv[])
         //p1.normal_x=nn[0];
         //p1.normal_y=nn[1];
         //p1.normal_z=nn[2];
-
     }
 
     

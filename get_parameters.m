@@ -1,11 +1,9 @@
-function [query_id, fname, lambda, alpha, rho, DEBUG, tau, subspace_num, k, speedup, denoise, dim, di] = get_parameters()
+function [query_id, fname, lambda, alpha, rho, DEBUG, tau, subspace_num, k, speedup, denoise, dim, di] = eters()
 % fandisk.off
-<<<<<<< HEAD
-fname='fandisk';
-=======
-fname='test';
+% fname='box';
+fname='noise_0.2_box';
+% fname='noise_0.5_box';
 % fname='fandisk';
->>>>>>> 0b3ab03acaea6bd8981178e706d0776e28065fea
 % fname='noise_fandisk2';
 % fname='noise_fandisk';
 % fname='noise_fandisk_7w';
@@ -27,18 +25,11 @@ fname='test';
 query_id=9038; % bunny ear
 query_id=161913; % armadillo tiny geometric feature
 % query_id=102961; % armadillo tiny geometric feature
-
-<<<<<<< HEAD
-k=50; % local neighborhood number
+k=100; % local neighborhood number
 % lambda=1/sqrt(k);
 lambda=1;
-=======
-k=5; % local neighborhood number
-% lambda=1/sqrt(k);
 % lambda=0.1414; % 50
-lambda=0; % 100
-% lambda=1;
->>>>>>> 0b3ab03acaea6bd8981178e706d0776e28065fea
+% lambda=0; % 100
 alpha=0.2;
 rho=1.9;
 DEBUG=0;
@@ -46,14 +37,10 @@ DEBUG=0;
 tau=8e-1; % with no noise and PCA normal
 % tau=1e-1; % with no noise and correct normal
 % tau=8e-2; % paper motion segmentation
-subspace_num=2;
+subspace_num=0;
 speedup=false;
 % speedup=true;
 denoise=false;
-<<<<<<< HEAD
-=======
-
-
 %%%% parameters for toy data
 %%%% as in the paper
 
@@ -79,4 +66,3 @@ di=1;
 
 % dim=3;
 % di=0;
->>>>>>> 0b3ab03acaea6bd8981178e706d0776e28065fea
